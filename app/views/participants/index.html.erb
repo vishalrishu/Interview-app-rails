@@ -1,0 +1,23 @@
+<h1>Participant List </h1>
+
+<table>
+  <thead>
+    <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Address</th>
+    </tr>
+  </thead>
+  <tbody>
+  
+    <%- @participants.each do |i| -%>
+      <tr>
+        <td><%= i.name %></td>
+        <td><%= i.email %></td>
+        <td><%= i.address %></td>
+        </tr>
+    <%- end -%>
+  </tbody>
+</table>
+
+<%= link_to "Back To Interview List",interviews_path%>
