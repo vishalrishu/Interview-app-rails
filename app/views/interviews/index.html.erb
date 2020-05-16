@@ -24,7 +24,8 @@
         <td><%- i.participants.each do |p| -%>
             <%= p.name %> 
         <%- end -%></td>
-        <td><%= link_to "edit", edit_interview_path(i[:id]) %></td>
+        <td><%= link_to "edit", edit_interview_path(i[:id]) %>
+        <%= link_to "delete", i, method: :delete, data: { confirm: "You sure?" }%></td>
         </tr>
     <%- end -%>
   </tbody>
