@@ -1,7 +1,7 @@
 <h1>Interview Show Page</h1>
 <p>Description: <%= @interview['description']%></p>
-<p>Start at: <%= @interview['startTime']%></p>
-<p>Ends at: <%= @interview['endTime']%></p>
+<p>Start at: <%= @interview['start_time']%></p>
+<p>Ends at: <%= @interview['end_time']%></p>
 <p>Resume: </p>
 <iframe src= <%= @interview.pdf.url %> width="595" height="485" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe><br>
 <%= link_to "Back To Interview List",interviews_path%>

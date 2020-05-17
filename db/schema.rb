@@ -26,8 +26,8 @@ ActiveRecord::Schema.define(version: 2020_05_16_155831) do
 
   create_table "interviews", force: :cascade do |t|
     t.string "description"
-    t.datetime "startTime"
-    t.datetime "endTime"
+    t.datetime "start_time"
+    t.datetime "end_time"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "pdf_file_name"

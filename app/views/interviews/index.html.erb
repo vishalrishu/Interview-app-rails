@@ -19,8 +19,8 @@
     <%- @interviews.each do |i| -%>
       <tr>
         <td><%= i.description %></td>
-        <td><%= i.startTime %></td>
-        <td><%= i.endTime %></td>
+        <td><%= i.start_time %></td>
+        <td><%= i.end_time %></td>
         <td><%- i.participants.each do |p| -%>
             <%= p.name %> 
         <%- end -%></td>
