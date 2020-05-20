@@ -11,7 +11,8 @@ class InterviewsController < ApplicationController
     def create
         @interview = Interview.create interview_params
         if @interview.id?
-            ReminderMailer.set_reminder(@interview).deliver_later(wait_until: (@interview.start_time - Time.now - 30.minutes).seconds.from_now)
+            ReminderJob.set(wait_until: (@interview.start_time - Time.now - 30.minutes).seconds.from_now).perform_later @interview.id
+#            ReminderMailer.set_reminder(@interview).deliver_later(wait_until: (@interview.start_time - Time.now - 30.minutes).seconds.from_now)
             redirect_to interview_path(@interview)
         else
             redirect_to new_interview_path, alert: "An Interview already exists with given participants"
@@ -23,7 +24,11 @@ class InterviewsController < ApplicationController
     def update
         @interview = Interview.find(params[:id])
         @interview.update interview_params
-        redirect_to interview_path(@interview)
+        if @interview.id?
+            ReminderMailer.set_reminder(@interview).deliver_now
+            redirect_to interview_path(@interview)
+        end
+        
     end
     def destroy
         Interview.find(params[:id]).destroy
