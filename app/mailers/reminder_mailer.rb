@@ -5,8 +5,8 @@ class ReminderMailer < ApplicationMailer
   #
   #   en.reminder_mailer.set_reminder.subject
   #
-  def send_reminder(id)
-    @interview = Interview.find(params[:id])
+  def set_reminder(id)
+    @interview = Interview.find(id)
     puts @interview.participant_ids
     @emails = Participant.select("email").where("id in (?)", @interview.participant_ids)
     email_list = []

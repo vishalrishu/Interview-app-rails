@@ -11,8 +11,7 @@ class InterviewsController < ApplicationController
     def create
         @interview = Interview.create interview_params
         if @interview.id?
-            ReminderJob.set(wait_until: (@interview.start_time - Time.now - 30.minutes).seconds.from_now).perform_later @interview.id
-#            ReminderMailer.set_reminder(@interview).deliver_later(wait_until: (@interview.start_time - Time.now - 30.minutes).seconds.from_now)
+            ReminderJob.set(wait: 1.minutes).perform_later(@interview.id)
             redirect_to interview_path(@interview)
         else
             redirect_to new_interview_path, alert: "An Interview already exists with given participants"

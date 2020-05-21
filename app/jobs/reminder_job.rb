@@ -5,7 +5,6 @@ class ReminderJob < ApplicationJob
     # Do something later
     puts interview_id
     puts "In Reminder job"
-    @interview = Interview.find(interview_id)
-    @interview.reminder_send
+    Interview.send_reminder(interview_id)
   end
 end

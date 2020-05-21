@@ -32,7 +32,7 @@ ActiveRecord::Schema.define(version: 2020_05_16_155831) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "pdf_file_name"
     t.string "pdf_content_type"
-    t.integer "pdf_file_size"
+    t.bigint "pdf_file_size"
     t.datetime "pdf_updated_at"
   end
 

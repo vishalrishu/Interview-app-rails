@@ -7,7 +7,7 @@ gem 'bootstrap-sass'
 gem 'paperclip'
 gem 'figaro'
 gem 'select2-rails', '~> 4.0.1'
-gem 'sidekiq'
+gem 'sidekiq', '~> 5.2.2'
 gem 'sinatra'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'

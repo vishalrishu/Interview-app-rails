@@ -18,8 +18,9 @@ class Interview < ApplicationRecord
         errors.add(:overlap_error, 'There is already an event scheduled in this hour!')
     end
 
-    def send_reminder
+    def self.send_reminder(id)
+        puts id
         puts "In Interview Model"
-        ReminderMailer.send_reminder(self.id).deliver_later
+        ReminderMailer.set_reminder(id).deliver_now
     end
 end
