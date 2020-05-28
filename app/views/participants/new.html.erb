@@ -9,11 +9,20 @@
         <%= label_tag(:email, "Email") %> 
         <%= form.text_field :email %>
     </p>
-    
     <p>
         <%= label_tag(:address, "Address") %> 
         <%= form.text_field :address %>
     </p>
+    <p>
+        <%= label_tag(:role, "Role") %>
+        <%= form.select :role, options_for_select([['Select Role', '0'], ['Interviewer', 'Interviewer'],['Interviewee', 'Interviewee']], '0')%>
+    </p>
+    <p unless :role == 'Interviewer'>
+      <%= label_tag(:pdf, "Resume") %> 
+
+      <%= form.file_field :pdf %>
+    </p>
+
     <p>
       <%= form.submit %>
     </p>

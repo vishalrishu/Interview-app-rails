@@ -6,6 +6,7 @@
         <th>Name</th>
         <th>Email</th>
         <th>Address</th>
+        <th>Role</th>
     </tr>
   </thead>
   <tbody>
@@ -15,6 +16,8 @@
         <td><%= i.name %></td>
         <td><%= i.email %></td>
         <td><%= i.address %></td>
+        <td><%= i.role %></td>
+        <td> <%= link_to "delete", i, method: :delete, data: { confirm: "You sure?" }%></td>
         </tr>
     <%- end -%>
   </tbody>

@@ -1,9 +1,7 @@
 class Interview < ApplicationRecord
-  has_many :interview_participants, dependent: :delete_all  
+  has_many :interview_participants, dependent: :destroy  
   has_many :participants, :through => :interview_participants
 
-  has_attached_file :pdf
-  validates_attachment :pdf, content_type: { content_type: "application/pdf" }
   validate :cannot_overlap_time
   def cannot_overlap_time
     overlaps = Interview.joins("INNER JOIN interview_participants pi ON interviews.id = pi.interview_id")
@@ -19,9 +17,4 @@ class Interview < ApplicationRecord
     errors.add(:overlap_error, 'There is already an event scheduled in this hour!')
   end
 
-  def self.send_reminder(id)
-  #  puts id
-  # puts "In Interview Model"
-    ReminderMailer.set_reminder(id).deliver_now
-  end
 end
