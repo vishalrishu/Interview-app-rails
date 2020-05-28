@@ -3,9 +3,13 @@ class ReminderJob < ApplicationJob
 
   def perform(interview_id, start_time)
     @interview = Interview.find(interview_id)
+    puts start_time
+    puts @interview.start_time
     if @interview.id?
+      puts "Reminder job"
       if @interview.start_time.to_i == start_time.to_i  
-        ReminderMailer.set_reminder(interview_id)
+        puts "If"
+        ReminderMailer.set_reminder(interview_id).deliver_now
       else
         puts "Updated, older mail, We don't need to send this mail now."
       end
