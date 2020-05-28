@@ -1,0 +1,21 @@
+class ReminderMailer < ApplicationMailer
+
+  # Subject can be set in your I18n file at config/locales/en.yml
+  # with the following lookup:
+  #
+  #   en.reminder_mailer.set_reminder.subject
+  #
+  def set_reminder(interview)
+    @interview = interview
+    puts @interview.participant_ids
+    @emails = Participant.select("email").where("id in (?)", @interview.participant_ids)
+    email_list = []
+    for e in @emails do 
+      email_list.append(e.email)
+    end
+    puts email_list
+    puts "EMail ids"
+
+    mail to: email_list, subject: "Reminder mail"
+  end
+end
