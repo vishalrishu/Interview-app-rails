@@ -1,5 +1,16 @@
-<h1>Reminder#set_reminder</h1>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h2>Interview reminder.</h2>
+    <p> 
+      Interview will start in 30 minutes.<br>
+      
+      Description - <%= @interview.description %><br>
+      Interview start time - <%= @interview.start_time %> <br>
+      Interview end time - <%= @interview.end_time %> <br>
 
-<p>
-  <%= @greeting %>, find me in app/views/reminder_mailer/set_reminder.html.erb
-</p>
+    </p>
+  </body>
+</html> 
