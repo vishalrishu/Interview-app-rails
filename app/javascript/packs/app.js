@@ -46,6 +46,7 @@ const router = async () => {
   
 }
 
+export default routes;
 // Listen on hash change:
 window.addEventListener('hashchange', router);
 

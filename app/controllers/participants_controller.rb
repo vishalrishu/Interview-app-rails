@@ -16,14 +16,25 @@ class ParticipantsController < ApplicationController
     # puts "Parameters"
     # puts participant_params
     @participant = Participant.create participant_params
-    
-    redirect_to participant_path(@participant)
+    if @participant.save()
+      render json: {
+        :success => true,
+      }
+    else
+      render json: {
+        :success => false
+      }
+    end
+    # redirect_to participant_path(@participant)
   end
 
   def destroy
     @participant = Participant.find(params[:id])
     @participant.destroy
-    redirect_to participants_path
+    render json: {
+      :success => true,
+    }
+    # redirect_to participants_path
   end
 
   private

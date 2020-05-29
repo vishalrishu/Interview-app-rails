@@ -1,3 +1,5 @@
+import Redirect from '../../services/Redirect.js';
+
 let createParticipant = async (participant) => {
     let data = {
       name: participant.name, 
@@ -14,7 +16,14 @@ let createParticipant = async (participant) => {
     };
     try {
       const res = await fetch(`http://localhost:3000/participants`, options);
-      location.hash = "/participants";
+      const json = await response.json();
+      if(json.success){
+          alert("Participant Created");
+          Redirect('/participants')
+      }
+      else{
+          alert("Participant not Created");
+      }
     } catch (err) {
       console.log(err);
     }
@@ -36,6 +45,9 @@ let NewParticipant = {
                 <label for="address">Address</label>
                 <input type="text" name="address" class="form-control" id="address">
                 
+                <label for="pdf">Resume</label>
+                <input class="form-control" type="file" name="pdf" id="pdf" accept="application/pdf">
+              
                 <label for="role">Choose a role:</label>
                 <select name="role" id="role" form="carform">
                     <option value="Interviewer">Interviewer</option>

@@ -1,5 +1,8 @@
 // --------------------------------
 //  Define Data Sources
+
+import Redirect from "../../services/Redirect";
+
 // --------------------------------
 let getInterviews = async() => {
     const options = {
@@ -16,6 +19,34 @@ let getInterviews = async() => {
         console.log('Error getting data', err)
     }
 }
+
+window.deleteInterview = async (id) => {
+    const confirm = window.confirm("Are you sure? ");
+    if(confirm){
+         const options = {
+             method: 'DELETE',
+             headers: {
+              'Content-Type': 'application/json',
+             }
+         };
+         try {
+             const response = await fetch(`http://localhost:3000/interviews/${id}`, options)
+             const json = await response.json();
+             console.log(json)
+             if(json.success){
+              alert('DELETED');
+              location.reload();
+             }
+             else{
+              alert('Not deleted');
+             }
+             return json
+         } catch (err) {
+             console.log('Error getting documents', err)
+         }
+    }
+}
+
 
 let Home = {
     render : async () => {
@@ -39,8 +70,8 @@ let Home = {
                 <td> ${interview.description} </td>
                 <td> ${interview.start_time} </td>
                 <td> ${interview.end_time} </td>
-                <td><a href="#">Edit</a></td>
-                <td><a href="#">Delete</a></td>
+                <td> <a class="navbar-item" href="/#/interviews/${interview.id}/edit">  Edit </a></td>
+                <td><a class="navbar-item" onclick="deleteInterview(${interview.id})">  Delete </a></td>
             </tr>
             `)
         }
