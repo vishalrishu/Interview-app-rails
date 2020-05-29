@@ -3,6 +3,11 @@ class InterviewsController < ApplicationController
     @interviews = Interview.all
   end
 
+  def home
+    @interviews = Interview.all
+    render json: @interviews
+  end
+
   def show
     @interview = Interview.find(params[:id])
   end

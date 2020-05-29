@@ -1,32 +1,3 @@
-<h1>Interview List </h1>
-
-<%= link_to "Create a New Interview", new_interview_path %>
-<br>
-<%= link_to "Create a New Participant", new_participant_path %>
-
-
-<table>
-  <thead>
-    <tr>
-        <th>Description</th>
-        <th>Start Time</th>
-        <th>End Time</th>
-        <th>Participants</th>
-    </tr>
-  </thead>
-  <tbody>
-  
-    <%- @interviews.each do |i| -%>
-      <tr>
-        <td><%= i.description %></td>
-        <td><%= i.start_time %></td>
-        <td><%= i.end_time %></td>
-        <td><%- i.participants.each do |p| -%>
-            <%= p.email %> 
-        <%- end -%></td>
-        <td><%= link_to "edit", edit_interview_path(i[:id]) %>
-        <%= link_to "delete", i, method: :delete, data: { confirm: "You sure?" }%></td>
-        </tr>
-    <%- end -%>
-  </tbody>
-</table>
+<div id="page_container" class="container pageEntry" >
+Index        
+</div>
