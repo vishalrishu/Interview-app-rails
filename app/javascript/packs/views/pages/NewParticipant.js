@@ -2,10 +2,13 @@ import Redirect from '../../services/Redirect.js';
 
 let createParticipant = async (participant) => {
     let data = {
+      participant: {
       name: participant.name, 
       email: participant.email,
       address: participant.address,
-      role: participant.role
+      role: participant.role,
+      pdf: participant.pdf
+      }
     };
     const options = {
       method: "POST",
@@ -15,11 +18,10 @@ let createParticipant = async (participant) => {
       body: JSON.stringify(data),
     };
     try {
-      const res = await fetch(`http://localhost:3000/participants`, options);
+      const response = await fetch(`http://localhost:3000/participants`, options);
       const json = await response.json();
       if(json.success){
           alert("Participant Created");
-          Redirect('/participants')
       }
       else{
           alert("Participant not Created");
@@ -34,7 +36,7 @@ let NewParticipant = {
         let view =  /*html*/`
             <h1> Create New Participant</h1>
             <div class="container">
-            <form id="participant">
+            <form id="create_participant" >
                 
                 <label for="name">Name</label>
                 <input class="form-control" type="text" name="name" id="name">
@@ -49,11 +51,11 @@ let NewParticipant = {
                 <input class="form-control" type="file" name="pdf" id="pdf" accept="application/pdf">
               
                 <label for="role">Choose a role:</label>
-                <select name="role" id="role" form="carform">
-                    <option value="Interviewer">Interviewer</option>
+                <select name="role" id="role">
+                    <option value="Interviewer" selected>Interviewer</option>
                     <option value="Interviewee">Interviewee</option>
                 </select><br>
-                <div class="button" id="btn">
+                <div class="button" id="button">
                     <button type="submit" name="submit" class="btn btn-primary">Submit</button>
                 </div>
                 
@@ -72,20 +74,22 @@ let NewParticipant = {
         return view
     }
     , after_render: async () => {
-        document.getElementById("btn").addEventListener("click", () => {
-            let name = document.getElementById("name");
-            let email = document.getElementById("email");
-            let address = document.getElementById("address");
-            let role = document.getElementById("role");
-            let participant = {
-              name: name.value,
-              email: email.value,
-              address: address.value,
-              role: role.value
-            };
-            createParticipant(participant);
-          });
-    },
-};
+      const form = document.getElementById('create_participant');
+
+      form.addEventListener('submit', event => {
+          event.preventDefault();
+          let participant = {};
+          Object.keys(form.elements).forEach(key => {
+              let element = form.elements[key];
+              if (element.type !== "submit") {
+                participant[element.id] = element.value;
+              } 
+            });
+          
+          console.log(participant);
+          createParticipant(participant);
+    })
+  }
+}
 
 export default NewParticipant;

@@ -10,6 +10,7 @@ class InterviewsController < ApplicationController
 
   def show
     @interview = Interview.find(params[:id])
+    render json: @interview
   end
 
   def new
@@ -17,8 +18,7 @@ class InterviewsController < ApplicationController
   end
 
   def create
-
-    @interview = Interview.create interview_params
+    @interview = Interview.new(interview_params)
     if @interview.save()
       render json: {
         :success => true,
@@ -70,6 +70,6 @@ class InterviewsController < ApplicationController
   private
 
   def interview_params
-    params.require(:interview).permit(:description, :start_time, :end_time, participant_ids: [])
+    params.require(:interview).permit(:description, :start_time, :end_time, :participant_ids=> [])
   end
 end

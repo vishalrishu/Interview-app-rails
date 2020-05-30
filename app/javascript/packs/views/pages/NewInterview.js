@@ -16,11 +16,15 @@ let getParticipants = async() => {
 }
 let createInterview = async (interview) => {
     let data = {
+        interview: {
         start_time: interview.start_time, 
         end_time: interview.end_time,
         description: interview.description,
         participant_ids: interview.participant_ids
+        }
       };
+    console.log(data);
+    console.log("data");
     const options = {
         method: "POST",
         headers: {
@@ -33,7 +37,7 @@ let createInterview = async (interview) => {
         const json = await response.json();
         if(json.success){
             alert("Interview Created");
-            Redirect('/')
+            // Redirect('/')
         }
         else{
             alert("Interview not Created");
