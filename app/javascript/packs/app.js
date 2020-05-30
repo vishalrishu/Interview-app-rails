@@ -12,11 +12,11 @@ import NewParticipant from './views/pages/NewParticipant.js';
 // List of supported routes. Any url other than these routes will throw a 404 error
 const routes = {
     '/'             : Home
-    , '/interviews/:id'      : ShowInterview
-    , '/interviews/:id/edit'   : EditInterview
-    , '/interviews/new'      : NewInterview
+    , '/interview/:id'      : ShowInterview
+    , '/interview/:id/edit'   : EditInterview
+    , '/new_interview'      : NewInterview
     , '/participants' : Participants
-    , '/participants/new' : NewParticipant
+    , '/new_participant' : NewParticipant
     ,
 };
 
@@ -33,7 +33,7 @@ const router = async () => {
     // debugger
     // Parse the URL and if it has an id part, change it with the string ":id"
     let parsedURL = (request.resource ? "/" + request.resource : "/") +
-    (request.id ? "/" + request.id : "") +
+    (request.id ? "/:id" : "") +
     (request.verb ? "/" + request.verb : "");
     console.log("Parsed url");
     console.log(parsedURL);
@@ -46,7 +46,6 @@ const router = async () => {
   
 }
 
-export default routes;
 // Listen on hash change:
 window.addEventListener('hashchange', router);
 

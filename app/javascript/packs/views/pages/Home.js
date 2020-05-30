@@ -70,7 +70,7 @@ let Home = {
                 <td> ${interview.description} </td>
                 <td> ${interview.start_time} </td>
                 <td> ${interview.end_time} </td>
-                <td> <a class="navbar-item" href="/#/interviews/${interview.id}/edit">  Edit </a></td>
+                <td> <a onclick = "window.location.href= '/#/interview/${interview.id}/edit'">  Edit </a></td>
                 <td><a class="navbar-item" onclick="deleteInterview(${interview.id})">  Delete </a></td>
             </tr>
             `)
@@ -78,12 +78,12 @@ let Home = {
         </tbody>
       </table>
                 <div class="text-center">
-                    <a onclick = "window.location.href= '/#/interviews/new'">
+                    <a onclick = "window.location.href= '/#/new_interview'">
                     Create new Interview
                     </a>
                 </div>
                 <div class="text-center">
-                    <a onclick = "window.location.href= '/#/participants/new'">
+                    <a onclick = "window.location.href= '/#/new_participant'">
                     Create new Participant
                     </a>
                 </div>
