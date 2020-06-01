@@ -28,25 +28,33 @@ const NewInterview = ()=> {
   };
 
   return (
+    <div>
     <form onSubmit = {handleSubmit}>
       <label>
         Description:
         <input type="text" value={description} onChange={(e) => setDescription(e.target.value)}/>
-      </label>
+      </label><br></br>
       <label>
         Start Time:
         <input type="datetime-local" value={start_time} onChange={(e) => setStarttime(e.target.value)}/>
-      </label>
+      </label><br></br>
       <label>
         End Time:
         <input type="datetime-local" value={end_time} onChange={(e) => setEnd(e.target.value)}/>
-      </label>
+      </label><br></br>
       <label>
         Participants
         
-      </label>
+      </label><br></br>
       <input type="submit" value="Submit" />
     </form>
+    <div>
+      <Link to="/">Interview List</Link><br></br>
+      
+      <Link to="/participants">Participant List</Link>
+
+    </div>
+    </div>
   );
 }
 

@@ -35,9 +35,9 @@ const Home = ()=> {
       )}
       </tbody>
       </table>
-      <Link to="/interview/new">Create Interview</Link><br></br>
+      <Link to="/new_interview">Create Interview</Link><br></br>
       
-      <Link to="/participant/new">Create Participant</Link>
+      <Link to="/new_participant">Create Participant</Link>
 
     </div>
   );

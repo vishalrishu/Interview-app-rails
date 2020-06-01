@@ -14,6 +14,7 @@ const NewParticipant = ()=> {
   };
 
   return (
+      <div>
     <form onSubmit = {handleSubmit}>
       <label>
         Name:
@@ -33,6 +34,13 @@ const NewParticipant = ()=> {
       </label><br></br>
       <input type="submit" value="Submit" />
     </form>
+    <div>
+    <Link to="/">Interview List</Link><br></br>
+    
+    <Link to="/participants">Participant List</Link>
+
+  </div>
+  </div>
   );
 }
 
