@@ -1,13 +1,21 @@
 import Utils from "../../services/Utils";
 import getParticipants from "../../services/getParticipants";
 let updateInterview = async (interview) => {
-    console.log(JSON.stringify(interview))
+    // console.log(JSON.stringify(interview))
+    let data = {
+        interview: {
+        start_time: interview.start_time, 
+        end_time: interview.end_time,
+        description: interview.description,
+        participant_ids: interview.participant_ids
+        }
+      };
     const options = {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(interview),
+        body: JSON.stringify(data),
       };
       try {
         const response = await fetch(`http://localhost:3000/interviews/`+interview.id, options);
@@ -16,7 +24,6 @@ let updateInterview = async (interview) => {
         console.log(json)
         if(json.success){
          alert("Interview Updated");
-           Redirect('/')
         }
         else{
           alert("Interview not Updated");
@@ -24,34 +31,6 @@ let updateInterview = async (interview) => {
       } catch (err) {
         console.log(err);
       }
-}
-
-let selectParticipant =  async (participants, ids) =>{
-    let list='';
-    for( var i =0; i< ids.length;i++)
-    {
-        var flag=0;
-        for(var j=0;j< participants.length;j++)
-        {
-            if(participants[j]==id[i])
-            {
-                flag=1;
-            }
-        }
-
-        if(flag)
-        {
-            list+=  `<input type="checkbox" id=${id[i]} name="participant_id"  value=${id[i]} checked >
-                  <label for=${id[i]}> ${participants[i].name}</label><br>`
-        }
-        else{
-
-            list+=  `<input type="checkbox" id=${id[i]} name="participant_id"  value=${id[i]} >
-                  <label for=${id[i]}> ${participants[i].name}</label><br>`
-
-        }
-    }
-    return list;
 }
 
 let getInterview = async (id) => {
@@ -76,12 +55,14 @@ let EditInterview = {
         let request = Utils.parseRequestURL();
         let id = request.id;
         let interview = await getInterview(id);
-        console.log(interview)
-        console.log("Interview")
+        // console.log(interview)
+        // console.log("Interview")
         let participants = await getParticipants();
-        console.log(participants);
-        let select_participants = await selectParticipant(participants, interview.participant_ids);
-        console.log("Particiapnst");
+        // console.log(participants);
+        var start_time = new Date(interview.start_time);
+        // console.log(start_time);
+        var end_time = new Date(interview.end_time);
+        // console.log("Particiapnst");
         let view =  /*html*/`
         <h1>Edit Interview</h1>
         <div class="container">
@@ -92,15 +73,22 @@ let EditInterview = {
             </div>
             <div class="form-group">
                 <label for="starttime">Start time</label>
-                <input type="datetime-local" name="start_time" class="form-control" id="start_time" value=${interview.start_time}>
+                <input type="datetime-local" name="start_time" class="form-control" id="start_time" value=${start_time}>
             </div>
             <div class="form-group">
                 <label for="endtime">End time</label>
-                <input type="datetime-local" name="end_time" class="form-control" id="end_time" value=${interview.end_time}>
+                <input type="datetime-local" name="end_time" class="form-control" id="end_time" value=${end_time}>
             </div>
             <div class="form-group">
-                <label for="interviewee">Interviewee</label>
-                ${select_participants}
+                <label for="participants">Participants</label>
+                ${ participants.map(p => 
+                    /*html*/`
+                    <input type="checkbox" id=${p.id} name="participant_id"  value=${p.id} >
+                    <label for=${p.id}> ${p.name}</label><br>
+                    
+                    `
+                    )
+                }
             </div>
             <button type="submit" name="submit" class="btn btn-primary">Submit</button>
            
@@ -117,8 +105,35 @@ let EditInterview = {
         return view
     }
     , after_render: async () => {
-    }
-
+        const form = document.getElementById('interview_create');
+        let request = Utils.parseRequestURL()
+        let id = request.id
+        form.addEventListener('submit', event => {
+            event.preventDefault();
+            let interview = {};
+            let participant_ids = [];
+            Object.keys(form.elements).forEach(key => {
+                let element = form.elements[key];
+                if (element.type !== "submit") {
+                    if(element.name == "participant_id")
+                    {
+                        if(element.checked == true)
+                        {
+                        participant_ids.push(element.value);
+                        }
+                    }
+                    else{
+                        interview[element.id] = element.value;
+                    }
+                }
+                interview["participant_ids"] = participant_ids
+                
+              });
+            // console.log(interview);
+            interview["id"] = id;
+            updateInterview(interview);
+    });
+}
 }
 
 export default EditInterview;
