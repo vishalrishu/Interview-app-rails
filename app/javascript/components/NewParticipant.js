@@ -10,11 +10,32 @@ const NewParticipant = ()=> {
 
   const handleSubmit = (e) =>{
     e.preventDefault();
+    let data= {
+      participant: {
+        name: name,
+        email: email,
+        address: address,
+        role: role
+      }
+    }
+    const req = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data)
+    };
+
+    fetch(`http://localhost:3000/participants`, req)
+      .then(res => {
+        res.json();
+      })
     console.log("submitted form")
   };
 
   return (
       <div>
+        <h1>Create Participant</h1>
     <form onSubmit = {handleSubmit}>
       <label>
         Name:

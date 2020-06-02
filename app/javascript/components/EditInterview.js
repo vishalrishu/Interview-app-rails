@@ -1,13 +1,24 @@
 import React, {useState, useEffect} from "react";
 import { Link } from "react-router-dom";
 
-const NewInterview = ()=> {
+const EditInterview = (props)=> {
 
-  const [start_time, setStarttime] = useState();
-  const [end_time, setEndtime] = useState();
-  const [description, setDescription] = useState();
-  const [participant_ids, setParticipants] = useState();
+  const [start_time, setStarttime] = useState('');
+  const [end_time, setEndtime] = useState('');
+  const [description, setDescription] = useState('');
+  const [participant_ids, setParticipants] = useState([]);
 
+
+  useEffect(()=>{
+    fetch(`http://localhost:3000/interviews/${props.match.params.id}`)
+      .then(res => res.json())
+      .then(data => {
+          setDescription(data.description)
+          if(data.start_time)
+          setStarttime(data.start_time.substring(0, 16))
+          setEndtime(data.end_time.substring(0, 16))
+        })
+  }, [])
 
   const handleSubmit = (e) =>{
     e.preventDefault();
@@ -20,14 +31,14 @@ const NewInterview = ()=> {
       }
     }
     const req = {
-      method: "POST",
+      method: "PATCH",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(data)
     };
 
-    fetch(`http://localhost:3000/interviews`, req)
+    fetch(`http://localhost:3000/interviews/${props.match.params.id}`, req)
       .then(res => {
         res.json();
       })
@@ -36,7 +47,7 @@ const NewInterview = ()=> {
 
   return (
     <div>
-      <h1>Schedule Interview</h1>
+      <h1>Edit Interview</h1>
     <form onSubmit = {handleSubmit}>
       <label>
         Description:
@@ -44,7 +55,10 @@ const NewInterview = ()=> {
       </label><br></br>
       <label>
         Start Time:
-        <input type="datetime-local" value={start_time} onChange={(e) => setStarttime(e.target.value)}/>
+        <input type="datetime-local" value={start_time} onChange={(e) => {
+            // console.log(e.target.value)
+            setStarttime(e.target.value)
+        }}/>
       </label><br></br>
       <label>
         End Time:
@@ -66,4 +80,4 @@ const NewInterview = ()=> {
   );
 }
 
-export default NewInterview;
+export default EditInterview;

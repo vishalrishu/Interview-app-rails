@@ -10,6 +10,32 @@ const Home = ()=> {
       .then(res => res.json())
       .then(interview => {setInterviews(interview)})
   }, [])
+
+  const handleDelete = (id,e) => {
+    console.log(id)
+    const confirmation = confirm("Are you sure?");
+    if (confirmation) {
+      const req = {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        }
+      };
+      fetch(`http://localhost:3000/interviews/${id}`, req)
+        .then(response => {
+          if(response){
+            console.log(response)
+            alert('DELETED');
+            location.reload();
+          } else{
+            alert('not DELETED')
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    }
+    }
   return (
     <div>
       <h1> Interview List </h1>
@@ -28,6 +54,9 @@ const Home = ()=> {
           <td> {interview.description} </td>
           <td> {interview.start_time} </td>
           <td> {interview.end_time} </td>
+          <td><Link to={`/interview/show/${interview.id}`}>Show</Link></td>
+          <td><Link to={`/interview/edit/${interview.id}`}>Edit</Link></td>
+          <td > <button onClick={(e) => handleDelete(interview.id, e)}>Delete</button></td>
           </tr>
         ))
       ) : (
