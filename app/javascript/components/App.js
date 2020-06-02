@@ -1,5 +1,5 @@
 import React from 'react'
-import {Route, Switch} from 'react-router-dom'
+import {BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import Home from "./Home";
 import NewInterview from './NewInterview';
 import NewParticipant from './NewParticipant';
@@ -9,7 +9,7 @@ import ShowInterview from './ShowInterview';
 
 const App = ()=> {
   return (
-    <div>
+    <Router>
       <Switch>
         <Route exact path="/" component={Home} />
         <Route path="/new_interview" component={NewInterview} />
@@ -18,7 +18,7 @@ const App = ()=> {
         <Route exact path="/interview/show/:id" component={ShowInterview}/>
         <Route path="/interview/edit/:id" component={EditInterview} />
       </Switch>
-    </div>
+    </Router>
   );
 }
 
