@@ -1,14 +1,24 @@
-import { GET_INTERVIEW, ADD_INTERVIEW, EDIT_INTERVIEW } from "../actions/actionTypes";
+import { GET_INTERVIEW, ADD_INTERVIEW, EDIT_INTERVIEW, SUBMIT_INTERVIEW } from "../actions/actionTypes";
 
-function interviewReducer(state = {interview: []}, action) 
+export const initialState = {
+    description: '',
+    start_time: '',
+    end_time: '',
+    participant_ids: []
+}
+
+function interviewReducer(state = initialState, action) 
 {
     switch(action.type) {
         case GET_INTERVIEW:
-            return {interview: action.payload};
+            return {...action.payload};
         case ADD_INTERVIEW:
-            return {interview: action.payload};
+            return {...action.payload};
+        case SUBMIT_INTERVIEW:
+            return {...action.payload};
         case EDIT_INTERVIEW:
-            return {interview: action.payload};
+            const payload = action.payload
+            return {...state, [payload.key]: payload.value};
         default:
             return state;
     }

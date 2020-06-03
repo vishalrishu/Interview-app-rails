@@ -30,7 +30,7 @@ export function createParticipant(data) {
               fetch(`http://localhost:3000/participants`, req)
                 .then(res => {
                     console.log(res);
-                    dispatch(addParticipant());
+                    dispatch(addParticipant(res.data));
                 });
               console.log("submitted form")
         } catch(e) {

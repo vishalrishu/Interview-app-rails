@@ -2,8 +2,8 @@ import React from 'react'
 import {Link} from "react-router-dom"
 const RenderInterview = (props) => {
 
-  const { interview } = props.interview;
-  console.log(props.interview)
+  const { interview } = props;
+  console.log(props)
   console.log("Render")
   return Object.keys(interview).length !== 0 ? (
     <div>

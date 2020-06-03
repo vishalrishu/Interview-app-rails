@@ -1,4 +1,4 @@
-import { loadInterviews, getInterview, addInterview, patchInterview } from "./actionCreators";
+import { loadInterviews, getInterview, addInterview, patchInterview, editInterview } from "./actionCreators";
 import React from 'react';
 import { Redirect } from "react-router-dom";
 
@@ -53,7 +53,7 @@ export function createInterview(data) {
         }
         console.log("success", res)
         
-        dispatch(addInterview());
+        dispatch(addInterview(res.data));
       })
     } catch(e) {
 
@@ -61,7 +61,7 @@ export function createInterview(data) {
   }
 }
 
-export function editInterview(id, data) {
+export function submitInterview(data) {
   return async (dispatch) =>{
     try {
       const req = {
@@ -72,13 +72,20 @@ export function editInterview(id, data) {
         body: JSON.stringify(data)
       };
   
-      fetch(`http://localhost:3000/interviews/${id}`, req)
+      fetch(`http://localhost:3000/interviews/${data.id}`, req)
         .then(res => {
-          dispatch(patchInterview())
+          dispatch(patchInterview(res.data))
         })
       console.log("submitted form")
     } catch(e) {
       console.log(e);
     }
   }
+}
+
+export function edit(key, value) {
+ return editInterview({
+   key,
+   value
+ })
 }

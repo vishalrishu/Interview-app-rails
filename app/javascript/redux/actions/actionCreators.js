@@ -1,4 +1,4 @@
-import {LOAD_INTERVIEWS, LOAD_PARTICIPANTS, GET_INTERVIEW, ADD_INTERVIEW, ADD_PARTICIPANT, EDIT_INTERVIEW } from '../actions/actionTypes'
+import {LOAD_INTERVIEWS, LOAD_PARTICIPANTS, GET_INTERVIEW, ADD_INTERVIEW, SUBMIT_INTERVIEW, ADD_PARTICIPANT, EDIT_INTERVIEW } from '../actions/actionTypes'
 
 export function loadParticipants(participants) {
   return { type: LOAD_PARTICIPANTS, payload: participants }
@@ -14,14 +14,18 @@ export const getInterview = (interview)=> {
   return {type: GET_INTERVIEW, payload: interview};
 }
 
-export const addInterview = ()=> {
-  return {type: ADD_INTERVIEW}
+export const addInterview = (data)=> {
+  return {type: ADD_INTERVIEW, payload: data}
 }
 
-export const addParticipant = () => {
-  return {type: ADD_PARTICIPANT}
+export const addParticipant = (data) => {
+  return {type: ADD_PARTICIPANT, payload: data}
 }
 
-export const patchInterview = () => {
-  return {type: EDIT_INTERVIEW}
+export const patchInterview = (data) => {
+  return {type: SUBMIT_INTERVIEW, payload: data}
+}
+
+export const editInterview = (data) => {
+  return {type: EDIT_INTERVIEW, payload: data}
 }
