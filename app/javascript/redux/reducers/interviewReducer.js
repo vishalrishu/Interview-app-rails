@@ -1,4 +1,4 @@
-import { GET_INTERVIEW, ADD_INTERVIEW } from "../actions/actionTypes";
+import { GET_INTERVIEW, ADD_INTERVIEW, EDIT_INTERVIEW } from "../actions/actionTypes";
 
 function interviewReducer(state = {interview: []}, action) 
 {
@@ -6,6 +6,8 @@ function interviewReducer(state = {interview: []}, action)
         case GET_INTERVIEW:
             return {interview: action.payload};
         case ADD_INTERVIEW:
+            return {interview: action.payload};
+        case EDIT_INTERVIEW:
             return {interview: action.payload};
         default:
             return state;

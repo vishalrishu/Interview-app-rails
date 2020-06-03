@@ -1,4 +1,4 @@
-import { loadParticipants } from "./actionCreators";
+import { loadParticipants, addParticipant } from "./actionCreators";
 
 export function fetchParticipants() {
     return async (dispatch) => {
@@ -15,3 +15,26 @@ export function fetchParticipants() {
       }
     };
   }
+
+export function createParticipant(data) {
+    return async (dispatch) => {
+        try {
+            const req = {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify(data)
+              };
+          
+              fetch(`http://localhost:3000/participants`, req)
+                .then(res => {
+                    console.log(res);
+                    dispatch(addParticipant());
+                });
+              console.log("submitted form")
+        } catch(e) {
+            console.log(e)
+        }
+    };
+}

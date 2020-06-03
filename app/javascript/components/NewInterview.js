@@ -1,5 +1,7 @@
 import React, {useState, useEffect} from "react";
 import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { createInterview } from "../redux/actions/interviewsAction";
 
 const NewInterview = ()=> {
 
@@ -9,6 +11,13 @@ const NewInterview = ()=> {
   const [participant_ids, setParticipants] = useState();
 
 
+  
+  const interview = useSelector(
+    state => state.interview
+  );
+  const dispatch = useDispatch()
+  console.log("New interview")
+  console.log(interview)
   const handleSubmit = (e) =>{
     e.preventDefault();
     let data= {
@@ -19,19 +28,7 @@ const NewInterview = ()=> {
         participant_ids: []
       }
     }
-    const req = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data)
-    };
-
-    fetch(`http://localhost:3000/interviews`, req)
-      .then(res => {
-        res.json();
-      })
-    console.log("submitted form")
+    dispatch(createInterview(data))
   };
 
   return (

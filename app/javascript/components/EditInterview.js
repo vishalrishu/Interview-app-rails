@@ -1,5 +1,7 @@
 import React, {useState, useEffect} from "react";
 import { Link } from "react-router-dom";
+import { fetchInterview, editInterview } from "../redux/actions/interviewsAction";
+import { useSelector, useDispatch } from "react-redux";
 
 const EditInterview = (props)=> {
 
@@ -7,18 +9,20 @@ const EditInterview = (props)=> {
   const [end_time, setEndtime] = useState('');
   const [description, setDescription] = useState('');
   const [participant_ids, setParticipants] = useState([]);
+  
 
+  const interview = useSelector(
+    state => state.interview.interview
+  );
+  const dispatch = useDispatch()
 
-  useEffect(()=>{
-    fetch(`http://localhost:3000/interviews/${props.match.params.id}`)
-      .then(res => res.json())
-      .then(data => {
-          setDescription(data.description)
-          if(data.start_time)
-          setStarttime(data.start_time.substring(0, 16))
-          setEndtime(data.end_time.substring(0, 16))
-        })
-  }, [])
+  const { match: { params: { id } } } = props;
+
+  useEffect(() => {
+    dispatch(fetchInterview(id))
+  }, [dispatch])
+    console.log(interview)
+    console.log("data")
 
   const handleSubmit = (e) =>{
     e.preventDefault();
@@ -30,19 +34,7 @@ const EditInterview = (props)=> {
         participant_ids: []
       }
     }
-    const req = {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data)
-    };
-
-    fetch(`http://localhost:3000/interviews/${props.match.params.id}`, req)
-      .then(res => {
-        res.json();
-      })
-    console.log("submitted form")
+    dispatch(editInterview(id , data))
   };
 
   return (
