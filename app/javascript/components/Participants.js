@@ -1,46 +1,27 @@
 import React, {useState, useEffect} from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { fetchParticipants } from "../redux/actions/participantsAction";
+import ListParticipants from "./ListParticipants";
 
-const Participants = ()=> {
-  
-  const [participants, setParticipants] = useState([]);
 
+const Participants = (props)=> {
+  console.log("Home", props)
+  const {dispatch, participants} = props;
+  console.log("particioants", participants)
   useEffect(()=>{
-    fetch("http://localhost:3000/participants")
-    .then(res => res.json())
-    .then(participant => {setParticipants(participant)})
+    dispatch(fetchParticipants())
   }, [])
+
   return (
     <div>
-    <h1> Participant List </h1>
-      <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Email</th>
-          <th>Address </th>
-        </tr>
-      </thead>
-      <tbody>
-    {participants.length > 0 ? (
-      participants.map((participant) => (
-        <tr key={participant.id}>
-        <td> {participant.name} </td>
-        <td> {participant.email} </td>
-        <td> {participant.address} </td>
-        </tr>
-      ))
-    ) : (
-      console.log("Error")
-    )}
-    </tbody>
-    </table>
-    <Link to="/new_interview">Create Interview</Link><br></br>
-    
-    <Link to="/new_participant">Create Participant</Link>
-
-  </div>
+      <ListParticipants participants={participants} />
+    </div>
   );
 }
 
-export default Participants;
+const mapStateToProps = (state) => ({
+  participants: state.participants,
+});
+
+export default connect(mapStateToProps)(Participants);

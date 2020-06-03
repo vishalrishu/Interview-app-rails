@@ -75,13 +75,18 @@
 // export default Home;
 import React, { useState, useEffect } from 'react'
 import {Link} from 'react-router-dom'
-import {connect} from 'react-redux'
+import {connect, useSelector, useDispatch} from 'react-redux'
 import { fetchInterviews } from '../redux/actions/interviewsAction'
 import ListInterviews from './ListInterviews'
 
 const Home = (props)=> {
+  
+  const interviews = useSelector(
+    state => state.interviews
+  );
+  const dispatch = useDispatch()
   console.log("Home", props)
-  const {dispatch, interviews} = props;
+  // const {dispatch, interviews} = props;
   console.log("interviews", interviews)
   useEffect(()=>{
     dispatch(fetchInterviews())
@@ -94,8 +99,4 @@ const Home = (props)=> {
   );
 }
 
-const mapStateToProps = (state) => ({
-  interviews: state.interviews,
-});
-
-export default connect(mapStateToProps)(Home);
+export default Home;

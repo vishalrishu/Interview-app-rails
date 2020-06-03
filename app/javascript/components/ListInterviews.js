@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from "react-router-dom";
 
 const ListInterviews = (props)=>{
-  const interviews = props.interviews.interviews;
+  const interviews = props.interviews;
 // console.log(interviews);
 // console.log("List interviews");
   return (
@@ -35,7 +35,8 @@ const ListInterviews = (props)=>{
         </table>
         <Link to="/new_interview">Create Interview</Link><br></br>
    
-        <Link to="/new_participant">Create Participant</Link>
+        <Link to="/new_participant">Create Participant</Link><br></br>
+        <Link to="/participants">Participant List</Link>
     </div>
   );
 }
