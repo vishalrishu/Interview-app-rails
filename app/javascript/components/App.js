@@ -3,9 +3,9 @@ import {BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import Home from "./Home";
 import NewInterview from './NewInterview';
 import NewParticipant from './NewParticipant';
-import Participants from './Participants';
 import EditInterview from './EditInterview';
 import ShowInterview from './ShowInterview';
+import Participants from './Participants';
 
 const App = ()=> {
   return (

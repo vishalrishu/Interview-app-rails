@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 import { Link } from "react-router-dom";
 
 const ListParticipants = (props)=> {
-    const participants = props.participants.participants;
+    const participants = props.participants;
     console.log(participants);
     console.log("List Participants");
     return (
