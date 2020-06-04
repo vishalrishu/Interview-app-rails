@@ -1,4 +1,4 @@
-import { loadInterviews, getInterview, addInterview, patchInterview, editInterview } from "./actionCreators";
+import { loadInterviews, getInterview, addInterview, patchInterview, editInterview, deleteInterview } from "./actionCreators";
 import React from 'react';
 import { Redirect } from "react-router-dom";
 
@@ -88,4 +88,32 @@ export function edit(key, value) {
    key,
    value
  })
+}
+
+export function destroy(id) {
+  return async (dispatch) =>{
+    try {
+      const req = {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        }
+      };
+      fetch(`http://localhost:3000/interviews/${id}`, req)
+        .then(response => {
+          if(response){
+            console.log(response)
+            alert('DELETED');
+            dispatch(deleteInterview(response.data))
+          } else{
+            alert('not DELETED')
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    }catch(e) {
+
+    }
+  }
 }

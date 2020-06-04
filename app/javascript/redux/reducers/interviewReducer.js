@@ -1,4 +1,4 @@
-import { GET_INTERVIEW, ADD_INTERVIEW, EDIT_INTERVIEW, SUBMIT_INTERVIEW } from "../actions/actionTypes";
+import { GET_INTERVIEW, ADD_INTERVIEW, EDIT_INTERVIEW, SUBMIT_INTERVIEW, DELETE_INTERVIEW } from "../actions/actionTypes";
 
 export const initialState = {
     description: '',
@@ -19,6 +19,8 @@ function interviewReducer(state = initialState, action)
         case EDIT_INTERVIEW:
             const payload = action.payload
             return {...state, [payload.key]: payload.value};
+        case DELETE_INTERVIEW:
+            return {...action.payload};
         default:
             return state;
     }

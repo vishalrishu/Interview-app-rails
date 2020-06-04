@@ -1,34 +1,21 @@
 import React from 'react'
 import { Link } from "react-router-dom";
+import { destroy } from '../redux/actions/interviewsAction';
+import { useDispatch } from 'react-redux';
 
 const ListInterviews = (props)=>{
   const interviews = props.interviews;
   
+  
+  const dispatch = useDispatch()
   const handleDelete = (id,e) => {
         console.log(id)
         const confirmation = confirm("Are you sure?");
         if (confirmation) {
-          const req = {
-            method: "DELETE",
-            headers: {
-              "Content-Type": "application/json",
-            }
-          };
-          fetch(`http://localhost:3000/interviews/${id}`, req)
-            .then(response => {
-              if(response){
-                console.log(response)
-                alert('DELETED');
-                location.reload();
-              } else{
-                alert('not DELETED')
-              }
-            })
-            .catch(error => {
-              console.log(error);
-            });
+          dispatch(destroy(id))
+          location.reload();
         }
-        }
+  }
 // console.log(interviews);
 // console.log("List interviews");
   return (
