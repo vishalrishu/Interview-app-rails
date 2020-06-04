@@ -1,11 +1,11 @@
 import React from 'react'
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { destroy } from '../redux/actions/interviewsAction';
 import { useDispatch } from 'react-redux';
 
 const ListInterviews = (props)=>{
   const interviews = props.interviews;
-  
+  let history = useHistory();
   
   const dispatch = useDispatch()
   const handleDelete = (id,e) => {
@@ -13,7 +13,7 @@ const ListInterviews = (props)=>{
         const confirmation = confirm("Are you sure?");
         if (confirmation) {
           dispatch(destroy(id))
-          location.reload();
+          location.reload()
         }
   }
 // console.log(interviews);

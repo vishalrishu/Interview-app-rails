@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { createParticipant } from "../redux/actions/participantsAction";
 import { useSelector, useDispatch } from "react-redux";
 const NewParticipant = ()=> {
@@ -12,6 +12,7 @@ const NewParticipant = ()=> {
   const participant = useSelector(
     state => state.participant
   );
+  let history = useHistory();
   const dispatch = useDispatch()
   const handleSubmit = (e) =>{
     e.preventDefault();
@@ -24,6 +25,8 @@ const NewParticipant = ()=> {
       }
     }
     dispatch(createParticipant(data))
+    
+    history.push("/participants");
   };
 
   return (

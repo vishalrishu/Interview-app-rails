@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { createInterview, edit } from "../redux/actions/interviewsAction";
 
@@ -8,7 +8,11 @@ const NewInterview = ()=> {
   const {description, start_time, end_time, participant_ids} = useSelector(
     state => state.interview
   );
+  
+  let history = useHistory();
+
   const dispatch = useDispatch()
+
   const handleSubmit = (e) =>{
     e.preventDefault();
     let data= {
@@ -20,6 +24,7 @@ const NewInterview = ()=> {
       }
     }
     dispatch(createInterview(data))
+    history.push("/");
   };
 
   const changeHandler=(key, value) => {

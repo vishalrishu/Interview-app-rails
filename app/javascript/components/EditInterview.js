@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { fetchInterview, submitInterview, edit } from "../redux/actions/interviewsAction";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -24,6 +24,7 @@ const EditInterview = (props)=> {
     // }
     console.log("data")
 
+  let history = useHistory();
   const handleSubmit = (e) =>{
     e.preventDefault();
     let data= {
@@ -36,6 +37,7 @@ const EditInterview = (props)=> {
       }
     }
     dispatch(submitInterview(data))
+    history.push("/")
   };
 
   const changeHandler=(key, value) => {
