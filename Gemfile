@@ -10,6 +10,7 @@ gem 'select2-rails', '~> 4.0.1'
 gem 'sidekiq', '~> 5.2.2'
 gem 'sinatra'
 gem 'rack-cors'
+gem 'react-rails'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.0.3'
