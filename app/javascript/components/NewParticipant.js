@@ -1,13 +1,19 @@
 import React, {useState, useEffect} from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import { createParticipant } from "../redux/actions/participantsAction";
+import { useSelector, useDispatch } from "react-redux";
 const NewParticipant = ()=> {
 
   const [name, setName] = useState();
   const [email, setEmail] = useState();
   const [address, setAddress] = useState();
   const [role, setRole] = useState();
-
-
+  
+  const participant = useSelector(
+    state => state.participant
+  );
+  let history = useHistory();
+  const dispatch = useDispatch()
   const handleSubmit = (e) =>{
     e.preventDefault();
     let data= {
@@ -18,19 +24,9 @@ const NewParticipant = ()=> {
         role: role
       }
     }
-    const req = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data)
-    };
-
-    fetch(`http://localhost:3000/participants`, req)
-      .then(res => {
-        res.json();
-      })
-    console.log("submitted form")
+    dispatch(createParticipant(data))
+    
+    history.push("/participants");
   };
 
   return (
