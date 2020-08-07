@@ -14,11 +14,6 @@
     <% end %>
   </p>
     <p>
-        <%= label_tag(:pdf, "Resume") %> 
-    
-        <%= form.file_field :pdf %>
-    </p>
-    <p>
         <%= label_tag(:start_time, "Start Time") %> 
         <%= form.date_select :start_time %>
         <%= form.time_select :start_time, :ignore_date => true %></br>

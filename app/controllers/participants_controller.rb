@@ -12,13 +12,22 @@ class ParticipantsController < ApplicationController
   end
 
   def create
+    # puts "Parameters"
+    # puts participant_params
     @participant = Participant.create participant_params
+    
     redirect_to participant_path(@participant)
+  end
+
+  def destroy
+    @participant = Participant.find(params[:id])
+    @participant.destroy
+    redirect_to participants_path
   end
 
   private
 
   def participant_params
-    params.require(:participant).permit(:name, :email, :address)
+    params.require(:participant).permit(:name, :email, :address, :pdf, :role)
   end
 end
