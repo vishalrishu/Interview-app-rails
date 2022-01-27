@@ -83,7 +83,7 @@ GEM
     childprocess (3.0.0)
     climate_control (0.2.0)
     concurrent-ruby (1.1.6)
-    connection_pool (2.2.2)
+    connection_pool (2.2.5)
     crass (1.0.6)
     erubi (1.9.0)
     execjs (2.7.0)
@@ -174,7 +174,7 @@ GEM
       execjs
       railties (>= 3.2)
       tilt
-    redis (4.1.4)
+    redis (4.5.1)
     regexp_parser (1.7.0)
     ruby2_keywords (0.0.2)
     rubyzip (2.3.0)
@@ -195,11 +195,10 @@ GEM
     selenium-webdriver (3.142.7)
       childprocess (>= 0.5, < 4.0)
       rubyzip (>= 1.2.2)
-    sidekiq (5.2.7)
-      connection_pool (~> 2.2, >= 2.2.2)
-      rack (>= 1.5.0)
-      rack-protection (>= 1.5.0)
-      redis (>= 3.3.5, < 5)
+    sidekiq (6.4.0)
+      connection_pool (>= 2.2.2)
+      rack (~> 2.0)
+      redis (>= 4.2.0)
     sinatra (2.0.8.1)
       mustermann (~> 1.0)
       rack (~> 2.0)
@@ -264,7 +263,7 @@ DEPENDENCIES
   sass-rails (>= 6)
   select2-rails (~> 4.0.1)
   selenium-webdriver
-  sidekiq (~> 5.2.2)
+  sidekiq (~> 6.4.0)
   sinatra
   turbolinks (~> 5)
   tzinfo-data
